@@ -1,0 +1,247 @@
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  background-color: #ffffff;
+}
+
+header {
+  margin-top: 3em;
+  text-align: center;
+  color: white;
+}
+
+header h1 {
+  font-size: 2em;
+  font-weight: 900;
+}
+
+h2 {
+  color: #041676;
+}
+
+/* informacionDescripcion {
+  color: #041676;
+} */
+
+#container3D canvas {
+  width: 100vw !important; /* Cambiado de 100vw a 100% */
+  height: 100vh !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+html, body {
+  overflow-x: hidden; /* Oculta el desbordamiento horizontal */
+  margin: 0;
+  padding: 0;
+}
+
+
+p {
+  transform: translateX(-5px);
+  transform: translateY(-10px);
+}
+
+/* Footer */
+
+.controls-mouse,
+.controls-touch {
+  z-index: 9999999;
+  padding: 1.25rem;
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  color: #041676;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+  display: none;
+  /* Prevent selection */
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+footer {
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  color: #041676;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.footer {
+  width: 100%;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #041676;
+  background-color: #d6d2ca80;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events:all;
+}
+
+.footer .links a:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.controls-mouse,
+.controls-touch {
+  display: none; /* Ambos se ocultan inicialmente */
+}
+
+@media (max-width: 767px) {
+  /* Móviles */
+  .controls-touch {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Escritorios y tablets grandes */
+  .controls-mouse {
+    display: block;
+  }
+}
+
+/* Nueva columna deslizante para escritorio */
+#info-column {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Oculto fuera de la pantalla */
+  width: 33.33%; /* Un tercio de la pantalla para escritorio */
+  height: 100vh;
+  background-color: #f4f4f4;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  padding: 1em;
+  overflow-y: auto; /* Permitir desplazamiento si el contenido es grande */
+  overflow-x: hidden; /* Desactivar scroll horizontal */
+  transition: right 0.5s ease; /* Animación suave al abrir/cerrar */
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+/* Columna deslizante abierta */
+#info-column.open {
+  right: 0; /* Abierta, en escritorio solo ocupa un tercio */
+}
+
+/* Asegura que las imágenes no se desborden en móviles */
+#info-column img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Asegura que se ajuste correctamente dentro del contenedor */
+  margin: 0 auto; /* Centra la imagen si es más pequeña que el contenedor */
+}
+
+/* Estilos para el texto */
+#info-column h2,
+#info-column p {
+  max-width: 100%; /* Limitar el texto al ancho del contenedor */
+  overflow-wrap: break-word; /* Romper palabras largas para evitar desbordamientos */
+  word-break: break-word;
+  margin: 1em 0;  /* Añadir espacio vertical */
+  line-height: 1.5; /* Mejorar legibilidad del texto */
+}
+
+
+/* Estilo responsivo: ocupando toda la pantalla en dispositivos móviles */
+@media (max-width: 767px) {
+  #info-column {
+    
+    width: 100%; /* Ocupa toda la pantalla en dispositivos móviles */
+    height: 100vh; /* Asegura que no sea mayor que la pantalla */
+    padding: 1em; /* Asegura espacio interno */
+    box-sizing: border-box;  /* Incluir el padding y border dentro del tamaño total */
+    overflow-y: auto; /* Habilitar scroll si el contenido es muy largo */
+    
+  }
+
+  #info-column.open {
+    right: 0; /* Al abrir, ocupa toda la pantalla */
+  }
+
+  /* Ajustar imágenes y contenido interno en móviles */
+  #info-column img {
+    max-width: 100%;   /* Limitar el ancho de la imagen al 100% del contenedor */
+    margin: 0 auto; /* Centra la imagen */
+    height: auto;      /* Mantener proporciones */
+  }
+
+  /* Texto en pantallas pequeñas */
+  #info-column h2,
+  #info-column p {
+    font-size: 1rem; /* Ajustar el tamaño del texto para pantallas pequeñas */
+    margin: 0.5em 0; /* Espaciado más pequeño entre elementos de texto */
+    
+  }
+
+  #info-column .close-btn {
+    font-size: 2rem; /* Aumentar el tamaño del botón de cierre para facilitar el toque */
+  }
+
+  /* Fondo oscuro cuando la columna está abierta en móviles */
+  #overlay {
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo más oscuro */
+  }
+
+  #overlay.active {
+    opacity: 1; /* Visibilidad del fondo cuando está activo */
+    visibility: visible;
+  }
+  
+}
+
+/* X para cerrar la columna, fija en una barra superior */
+#info-column .header-bar {
+  width: 100%; /* Asegura que la barra ocupe todo el ancho */
+  box-sizing: border-box;
+  overflow: hidden; /* Asegura que no se desborde */
+
+}
+
+/* Fondo semitransparente cuando el cuadro está abierto */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none; /* Evitar que capture eventos cuando está oculto */
+  transition: opacity 0.5s ease;
+  z-index: 9;
+}
+
+#overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto; /* Solo capturar eventos cuando está activo */
+}
+
+
+
+#info-column .close-btn {
+  font-size: 1.5em;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0; /* Evitar que el botón se reduzca */
+}
+
+
+
+
+.tooltip {
+  pointer-events: none; /* Desactiva los eventos de clic para el label */
+}
+
+
+
